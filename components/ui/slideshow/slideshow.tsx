@@ -29,9 +29,10 @@ interface Props {
   className?: string;
   interval?: number;
   slides: Slide[];
+  controlsVisible: boolean;
 }
 
-const Slideshow = ({ className, interval = 15_000, slides }: Props) => {
+const Slideshow = ({ className, interval = 15_000, slides, controlsVisible = true }: Props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const [isHoverPaused, setIsHoverPaused] = useState(false);
@@ -117,10 +118,10 @@ const Slideshow = ({ className, interval = 15_000, slides }: Props) => {
                 {slide.image && (
                   <NextImage
                     alt={slide.image.alt}
-                    blurDataURL={slide.image.blurDataUrl}
-                    className="absolute -z-10 object-cover"
+                    blurDataURL={slide.image.blurDataUrl ? slide.image.blurDataUrl : undefined}
+                    className="absolute -z-10 object-contain"
                     fill
-                    placeholder="blur"
+                    placeholder={slide.image.blurDataUrl ? 'blur' : undefined}
                     priority
                     sizes="(max-width: 1536px) 100vw, 1536px"
                     src={slide.image.src}
@@ -141,40 +142,52 @@ const Slideshow = ({ className, interval = 15_000, slides }: Props) => {
                   )}
                 </div>
               </div>
+              {slide.image && (
+                <div className="max-w-90vw-sm margin-auto flex justify-center bg-opacity-80 px-3 py-1 text-center text-black">
+                  {slide.image.alt}
+                </div>
+              )}
             </li>
           ))}
         </ul>
       </div>
-      <div className="absolute bottom-12 start-12 flex items-center gap-4">
-        <button
-          aria-label={isPaused ? 'Play slideshow' : 'Pause slideshow'}
-          className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          onClick={() => {
-            togglePaused();
-          }}
-        >
-          {isPaused ? <Play /> : <Pause />}
-        </button>
-        <button
-          aria-controls="slideshow-slides"
-          aria-label="Previous slide"
-          className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          onClick={scrollPrev}
-        >
-          <ArrowLeft />
-        </button>
-        <span aria-atomic="false" aria-live={isPaused ? 'polite' : 'off'} className="font-semibold">
-          {activeSlide} of {slides.length}
-        </span>
-        <button
-          aria-controls="slideshow-slides"
-          aria-label="Next slide"
-          className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
-          onClick={scrollNext}
-        >
-          <ArrowRight />
-        </button>
-      </div>
+
+      {controlsVisible && (
+        <div className="absolute bottom-12 start-12 flex items-center gap-4">
+          <button
+            aria-label={isPaused ? 'Play slideshow' : 'Pause slideshow'}
+            className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+            onClick={() => {
+              togglePaused();
+            }}
+          >
+            {isPaused ? <Play /> : <Pause />}
+          </button>
+          <button
+            aria-controls="slideshow-slides"
+            aria-label="Previous slide"
+            className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+            onClick={scrollPrev}
+          >
+            <ArrowLeft />
+          </button>
+          <span
+            aria-atomic="false"
+            aria-live={isPaused ? 'polite' : 'off'}
+            className="font-semibold"
+          >
+            {activeSlide} of {slides.length}
+          </span>
+          <button
+            aria-controls="slideshow-slides"
+            aria-label="Next slide"
+            className="inline-flex h-12 w-12 items-center justify-center focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
+            onClick={scrollNext}
+          >
+            <ArrowRight />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

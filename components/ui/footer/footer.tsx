@@ -86,22 +86,22 @@ const Footer = ({
         )}
         {Boolean(contactInformation) && (
           <>
-            <address className="not-italic">
+            {/* <address className="not-italic">
               {contactInformation?.address?.split('\n').map((line) => (
                 <Fragment key={line}>
                   {line}
                   <br />
                 </Fragment>
               ))}
-            </address>
-            {Boolean(contactInformation?.phone) && (
+            </address> */}
+            {/* {Boolean(contactInformation?.phone) && (
               <a
                 className="hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20"
                 href={`tel:${contactInformation?.phone}`}
               >
                 <p>{contactInformation?.phone}</p>
               </a>
-            )}
+            )} */}
           </>
         )}
         {Boolean(socialMediaLinks) && (

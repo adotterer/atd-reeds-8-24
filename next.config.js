@@ -18,6 +18,16 @@ const nextConfig = {
     ignoreDuringBuilds: !!process.env.CI,
     dirs: ['app', 'client', 'components', 'lib', 'middlewares'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'mshippoboe.s3.us-west-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   webpack: (config, { isServer }) => {
     if (process.env.NODE_V8_COVERAGE) {
       Object.defineProperty(config, 'devtool', {
