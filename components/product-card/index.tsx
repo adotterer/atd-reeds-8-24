@@ -45,6 +45,15 @@ export const ProductCardFragment = graphql(
     fragment ProductCardFragment on Product {
       entityId
       name
+      customFields {
+        edges {
+          node {
+            entityId
+            name
+            value
+          }
+        }
+      }
       defaultImage {
         altText
         url: urlTemplate
@@ -82,7 +91,7 @@ export const ProductCard = async ({
 }: Props) => {
   const format = await getFormatter();
 
-  const { name, entityId, defaultImage, brand, path, prices } = product;
+  const { name, entityId, defaultImage, brand, path, prices, customFields } = product;
 
   const price = pricesTransformer(prices, format);
 
@@ -90,6 +99,7 @@ export const ProductCard = async ({
     <ComponentProductCard
       addToCart={showCart && <AddToCart data={product} />}
       href={path}
+      customFields={customFields}
       id={entityId.toString()}
       image={defaultImage ? { src: defaultImage.url, altText: defaultImage.altText } : undefined}
       imagePriority={imagePriority}
