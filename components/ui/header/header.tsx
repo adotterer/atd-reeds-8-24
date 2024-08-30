@@ -1,12 +1,15 @@
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import { BcImage } from '~/components/bc-image';
+// import { BcImage } from '~/components/bc-image';
 import { Link as CustomLink } from '~/components/link';
 import { cn } from '~/lib/utils';
+
+import Logo from '../../bt-250.png';
 
 import { type Locale, LocaleSwitcher } from './locale-switcher';
 import { MobileNav } from './mobile-nav';
@@ -61,16 +64,29 @@ const Header = async ({
       <header className="flex h-[92px] items-center justify-between gap-1 overflow-y-visible bg-white px-4 2xl:container sm:px-10 lg:gap-8 lg:px-12 2xl:mx-auto 2xl:px-0">
         <CustomLink className="overflow-hidden text-ellipsis py-3" href="/">
           {typeof logo === 'object' ? (
-            <BcImage
-              alt={logo.altText}
-              className="max-h-16 object-contain"
-              height={32}
-              priority
-              src={logo.src}
-              width={155}
-            />
+            <div className="flex items-center object-contain">
+              <Image
+                alt="Boston terrier profile"
+                // className="opacity-50"
+                height={75}
+                priority
+                src={logo.src}
+                width={75}
+              />
+              <span className="text-lg font-black md:text-2xl">ATD Reeds</span>
+            </div>
           ) : (
-            <span className="truncate text-2xl font-black">{logo}</span>
+            <div className="flex items-center object-contain">
+              <Image
+                alt="Boston terrier profile"
+                // className="opacity-50"
+                height={75}
+                priority
+                src={Logo}
+                width={75}
+              />
+              <span className="text-lg font-black md:text-2xl">{logo}</span>
+            </div>
           )}
         </CustomLink>
 

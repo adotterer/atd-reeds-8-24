@@ -108,13 +108,13 @@ export const Footer = ({ data }: Props) => {
         href: category.path,
       })),
     },
-    {
-      title: 'Brands',
-      links: removeEdgesAndNodes(data.brands).map((brand) => ({
-        label: brand.name,
-        href: brand.path,
-      })),
-    },
+    // {
+    //   title: 'Brands',
+    //   links: removeEdgesAndNodes(data.brands).map((brand) => ({
+    //     label: brand.name,
+    //     href: brand.path,
+    //   })),
+    // },
     {
       title: 'Navigate',
       links: removeEdgesAndNodes(data.content.pages).map((page) => ({
@@ -133,14 +133,14 @@ export const Footer = ({ data }: Props) => {
           : undefined
       }
       logo={data.settings ? logoTransformer(data.settings) : undefined}
-      paymentIcons={[
-        <AmazonIcon key="amazon" />,
-        <AmericanExpressIcon key="americanExpress" />,
-        <ApplePayIcon key="apple" />,
-        <MastercardIcon key="mastercard" />,
-        <PayPalIcon key="paypal" />,
-        <VisaIcon key="visa" />,
-      ]}
+      // paymentIcons={[
+      //   <AmazonIcon key="amazon" />,
+      //   <AmericanExpressIcon key="americanExpress" />,
+      //   <ApplePayIcon key="apple" />,
+      //   <MastercardIcon key="mastercard" />,
+      //   <PayPalIcon key="paypal" />,
+      //   <VisaIcon key="visa" />,
+      // ]}
       sections={sections}
       socialMediaLinks={data.settings?.socialMediaLinks
         .filter((socialMediaLink) => Boolean(socialIcons[socialMediaLink.name]))

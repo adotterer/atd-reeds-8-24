@@ -1,6 +1,9 @@
+import Image from 'next/image';
+
 import { FragmentOf, graphql } from '~/client/graphql';
 
 import { BcImage } from '../bc-image';
+import Logo from '../bt-250.png';
 
 export const StoreLogoFragment = graphql(`
   fragment StoreLogoFragment on Settings {
@@ -28,17 +31,33 @@ export const StoreLogo = ({ data }: Props) => {
   const { logoV2: logo, storeName } = data;
 
   if (logo.__typename === 'StoreTextLogo') {
-    return <span className="truncate text-2xl font-black">{logo.text}</span>;
+    return (
+      <div className="flex items-center object-contain">
+        <Image
+          alt="Boston terrier profile"
+          // className="opacity-50"
+          height={75}
+          priority
+          src={Logo}
+          width={75}
+        />
+        <span className="text-lg font-black md:text-2xl">{logo.text}</span>
+      </div>
+    );
   }
 
   return (
-    <BcImage
-      alt={logo.image.altText ? logo.image.altText : storeName}
-      className="max-h-16 object-contain"
-      height={32}
-      priority
-      src={logo.image.url}
-      width={155}
-    />
+    <div className="flex items-center object-contain">
+      <Image
+        alt="Boston terrier profile"
+        // className="opacity-50"
+        height={75}
+        priority
+        src={Logo}
+        width={75}
+      />
+
+      <span className="text-lg font-black md:text-2xl">{logo.text}</span>
+    </div>
   );
 };
